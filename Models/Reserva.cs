@@ -1,3 +1,5 @@
+using Models;
+
 namespace DesafioProjetoHospedagem.Models
 {
     public class Reserva
@@ -17,14 +19,21 @@ namespace DesafioProjetoHospedagem.Models
         {
             // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
             // *IMPLEMENTE AQUI*
-            if (true)
+            int conthospedes = hospedes.Count;
+            if (conthospedes >= 2 || conthospedes <= 4)
             {
                 Hospedes = hospedes;
             }
-            else
+            else if(conthospedes < 2)
             {
                 // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
                 // *IMPLEMENTE AQUI*
+                throw new ExcecaoPersonalizada("Erro! a pacacidade minima para essa suite é de dois hospedes");
+            }
+            else if(conthospedes > 4)
+            {
+                //Retorna uma exception caso a capacidade seja maior que o número de hóspedes recebido 
+                throw new ExcecaoPersonalizada("Erro! a pacacidade maxíma para essa suite é de quatro hospedes");
             }
         }
 
@@ -37,7 +46,8 @@ namespace DesafioProjetoHospedagem.Models
         {
             // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
             // *IMPLEMENTE AQUI*
-            return 0;
+            int conthospedes = Hospedes.Count;
+            return conthospedes;
         }
 
         public decimal CalcularValorDiaria()
