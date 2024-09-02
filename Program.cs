@@ -3,23 +3,60 @@ using DesafioProjetoHospedagem.Models;
 
 Console.OutputEncoding = Encoding.UTF8;
 
-// Cria os modelos de hóspedes e cadastra na lista de hóspedes
-List<Pessoa> hospedes = new List<Pessoa>();
+// Método para coletar dados do hóspede
 
-Pessoa p1 = new Pessoa(nome: "Hóspede 1");
-Pessoa p2 = new Pessoa(nome: "Hóspede 2");
+Pessoa ColetarDadosHospede()
+{
+    System.Console.Write("Informe o seu nome: ");
+    string nome = Console.ReadLine();
+    System.Console.Write("Informe o seu telefone: ");
+    string telefone = Console.ReadLine();
 
-hospedes.Add(p1);
-hospedes.Add(p2);
+    int idade = 0;
+
+    while(true)
+    {
+        System.Console.Write("Informe a sua idade: ");
+        if(int.TryParse(Console.ReadLine(), out idade) && idade > 0)
+        {
+            break;
+        }
+        System.Console.Write("Idade invalida. tente novamente");
+    }
+
+    return new Pessoa(nome, telefone, idade);
+}
+
+// Método para cadastrar hospedes
+List<Pessoa> CadastrarHospedes()
+{
+    List<Pessoa> hospedes = new List<Pessoa>();
+    string continuar = "S";
+
+    while (continuar.Equals("S", StringComparison.OrdinalIgnoreCase))
+    {
+        Pessoa hospede = ColetarDadosHospede();
+        hospedes.Add(hospede);
+
+        System.Console.Write("Deseja continuar S/N? ");
+        continuar = Console.ReadLine();
+        System.Console.WriteLine("-------------------------------------");
+        System.Console.WriteLine();
+    }
+
+    return hospedes;
+}
+
+// Cadastro de hospedes
+List<Pessoa> hospedes = CadastrarHospedes();
 
 // Cria a suíte
-Suite suite = new Suite(tipoSuite: "Premium", capacidade: 4, valorDiaria: 30);
+Suite suite = new Suite(tipoSuite: "Premium", capacidade: 2, valorDiaria: 30);
 
-// Cria uma nova reserva, passando a suíte e os hóspedes
+// Cria uma nova reserva, passando a suíte e os hospedes
 Reserva reserva = new Reserva(diasReservados: 5);
 reserva.CadastrarSuite(suite);
 reserva.CadastrarHospedes(hospedes);
 
-// Exibe a quantidade de hóspedes e o valor da diária
-Console.WriteLine($"Hóspedes: {reserva.ObterQuantidadeHospedes()}");
-Console.WriteLine($"Valor diária: {reserva.CalcularValorDiaria()}");
+System.Console.WriteLine(reserva);
+

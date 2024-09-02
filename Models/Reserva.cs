@@ -62,5 +62,12 @@ namespace DesafioProjetoHospedagem.Models
 
             return valor;
         }
+
+
+        public override string ToString()
+        {
+            return "Quantidade de hospedes: " + ObterQuantidadeHospedes() 
+                    + "\nValor da diária: " + CalcularValorDiaria();
+        }
     }
 }
