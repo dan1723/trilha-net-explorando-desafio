@@ -14,5 +14,12 @@ public class Pessoa
         Telefone = telefone;
         Idade = idade;
     }
-    
+
+    public override string ToString()
+    {
+        return  "Nome: " + Nome 
+            + "\nTelefone: " + Telefone
+            + "\nIdade: " + Idade;     
+    }
+
 }

@@ -1,3 +1,5 @@
+using System.Diagnostics.Contracts;
+
 namespace DesafioProjetoHospedagem.Models
 {
     public class Suite
@@ -5,15 +7,23 @@ namespace DesafioProjetoHospedagem.Models
 
         public string TipoSuite { get; set; }
         public int Capacidade { get; set; }
-        public decimal ValorDiaria { get; set; }
+        private decimal _valor = 30.00m;
+        public decimal ValorDiaria { get{return _valor;}}
         
         public Suite() { }
 
-        public Suite(string tipoSuite, int capacidade, decimal valorDiaria)
+        public Suite(string tipoSuite, int capacidade)
         {
             TipoSuite = tipoSuite;
             Capacidade = capacidade;
-            ValorDiaria = valorDiaria;
+        }
+
+
+        public override string ToString()
+        {
+            return "Tipo: " + TipoSuite
+                  +"\nCapacidade: " + Capacidade
+                  +"\nValor da diaria: " + ValorDiaria; 
         }
     }
 }

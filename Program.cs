@@ -44,19 +44,63 @@ List<Pessoa> CadastrarHospedes()
         System.Console.WriteLine();
     }
 
+    
     return hospedes;
 }
 
-// Cadastro de hospedes
-List<Pessoa> hospedes = CadastrarHospedes();
+// Método para cadastrar suítes 
 
-// Cria a suíte
-Suite suite = new Suite(tipoSuite: "Premium", capacidade: 2, valorDiaria: 30);
+Suite CadastrarSuite()
+{
+    System.Console.WriteLine("Tipos de suítes: Premium, Convencional e Economica");
+    System.Console.Write("Informe o tipo da suite: ");
+    string tipoSuite = Console.ReadLine();
 
-// Cria uma nova reserva, passando a suíte e os hospedes
-Reserva reserva = new Reserva(diasReservados: 5);
-reserva.CadastrarSuite(suite);
-reserva.CadastrarHospedes(hospedes);
+    int capacidade;
+    System.Console.WriteLine("A capacidade máxima para cada suíte é de 2 pessoas.");
+    while (true)
+    {
+        System.Console.Write("Informe a capacidade de pessoas que irão utilizar a suíte: ");
+        if(int.TryParse(Console.ReadLine(), out capacidade) && capacidade <= 2)
+        {
+            break;
+        }
+        System.Console.WriteLine("Capacidade inválida. Tente novamente.");
+    }
 
-System.Console.WriteLine(reserva);
+    return new Suite(tipoSuite, capacidade);
+}
+
+// Método para cadastrar reservas
+Reserva CadastrarReserva(Suite suite, List<Pessoa> hospedes)
+{
+    int diasReservados;
+    while(true)
+    {
+        System.Console.Write("Informe o número de dias reservados: ");
+        if (int.TryParse(Console.ReadLine(), out diasReservados) && diasReservados > 0)
+        {
+            break;
+        }
+        System.Console.WriteLine("Número de dias inválido. Tente novamente.");
+    }
+
+    Reserva reserva = new Reserva(diasReservados);
+    reserva.CadastrarSuite(suite);
+    reserva.CadastrarHospedes(hospedes);
+
+    return reserva;
+}
+
+// Método para gerenciar cadastro de múltiplas reservas
+void GerenciarReservas()
+{
+    List<Reserva> reservas = new List<Reserva>();
+    string continuar = "S";
+
+    while(continuar.Equals("S", StringComparison.OrdinalIgnoreCase))
+    {
+        
+    }
+}
 
